@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Basic: Mecanum Drive", group="Iterative Opmode")
+@TeleOp(name="Basic: Mecanum Drive", group="Basic")
 public class BasicMecanumDrive extends OpMode
 {
     // Declare OpMode members

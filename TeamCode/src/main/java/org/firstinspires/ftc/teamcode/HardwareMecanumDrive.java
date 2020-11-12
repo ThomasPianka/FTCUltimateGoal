@@ -11,11 +11,6 @@ public class HardwareMecanumDrive
     public DcMotor backRight = null;
     private HardwareMap map = null;
 
-    public HardwareMecanumDrive()
-    {
-
-    }
-
     public void initialize(HardwareMap hwMap)
     {
         // Save reference to map
@@ -37,9 +32,9 @@ public class HardwareMecanumDrive
     public void setPower(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower)
     {
         // Set motor power
-        frontLeft.setPower(frontLeftPower);
-        frontRight.setPower(frontRightPower);
         backLeft.setPower(backLeftPower);
         backRight.setPower(backRightPower);
+        frontLeft.setPower(frontLeftPower);
+        frontRight.setPower(frontRightPower);
     }
 }
