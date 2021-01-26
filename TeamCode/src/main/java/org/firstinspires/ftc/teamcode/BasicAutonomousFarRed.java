@@ -33,11 +33,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Basic: Autonomous", group="Basic")
-public class BasicAutonomous extends LinearOpMode
+@Autonomous(name="Basic: Autonomous Far Red", group="Basic")
+public class BasicAutonomousFarRed extends LinearOpMode
 {
     // Declare OpMode members
-    private ElapsedTime runtime = new ElapsedTime();
     private HardwareMecanumDrive drive = new HardwareMecanumDrive();
 
     @Override
@@ -47,17 +46,15 @@ public class BasicAutonomous extends LinearOpMode
         telemetry.addData("Status", "Initialized");
 
         waitForStart();
-        runtime.reset();
 
         // Have robot drive forward for 2 seconds
         if (opModeIsActive())
         {
-            // Note: negative is forwards
-            drive.setPower(-0.5, -0.5, -0.5, -0.5);
-            sleep(1000);
+            // Note: negative is forward
+            // Drive forward at 50% power for 5 seconds, then stop
+            drive.setPower(-0.5, -0.51, -0.5, -0.51);
+            sleep(5000);
             drive.setPower(0, 0, 0, 0);
         }
-
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 }

@@ -46,6 +46,7 @@ public class BasicTeleop extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        // Initialize drive and manipulators
         telemetry.addData("Status", "Initializing");
         drive.initialize(hardwareMap);
         manipulators.initialize(hardwareMap);
@@ -89,7 +90,7 @@ public class BasicTeleop extends LinearOpMode {
             else
                 intakePower = 0;
 
-            // Set intake to run forwards while X is held or in reverse while Y is held
+            // Set intake to run forward while X is held or in reverse while Y is held
             if (gamepad2.x)
             {
                 manipulators.intakeServo.setDirection(DcMotor.Direction.FORWARD);
@@ -112,7 +113,7 @@ public class BasicTeleop extends LinearOpMode {
             else if (gamepad2.dpad_down)
             {
                 manipulators.rampMotor.setDirection(DcMotor.Direction.FORWARD);
-                rampPower = .5;
+                rampPower = .35;
             }
             else
                 rampPower = 0;
