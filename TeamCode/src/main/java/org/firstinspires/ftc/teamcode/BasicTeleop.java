@@ -104,16 +104,16 @@ public class BasicTeleop extends LinearOpMode {
             else
                 intakeServoPower = 0;
 
-            // Raise the ramp at 10% power while DPAD UP is held and lower ramp at 10% power while DPAD DOWN is held
+            // Raise ramp at 35% power while DPAD UP is held and lower ramp at 75% power while DPAD DOWN is held
             if (gamepad2.dpad_up)
             {
                 manipulators.rampMotor.setDirection(DcMotor.Direction.REVERSE);
-                rampPower = .5;
+                rampPower = .35;
             }
             else if (gamepad2.dpad_down)
             {
                 manipulators.rampMotor.setDirection(DcMotor.Direction.FORWARD);
-                rampPower = .35;
+                rampPower = .75;
             }
             else
                 rampPower = 0;
