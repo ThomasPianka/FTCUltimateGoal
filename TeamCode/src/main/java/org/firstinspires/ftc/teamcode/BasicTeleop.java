@@ -42,7 +42,8 @@ public class BasicTeleop extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private HardwareMecanumDrive drive = new HardwareMecanumDrive();
     private HardwareManipulators manipulators = new HardwareManipulators();
-    private boolean motorOn = false;
+    private boolean intakeOn = false;
+    private boolean intakeBoost = false;
 
     @Override
     public void runOpMode() {
@@ -82,11 +83,24 @@ public class BasicTeleop extends LinearOpMode {
 
             // Set intake roller power to 50% when A is pressed and set power to 0% when B is pressed
             if (gamepad2.a)
-                motorOn = true;
+            {
+                intakeOn = true;
+                intakeBoost = false;
+            }
             if (gamepad2.b)
-                motorOn = false;
-            if (motorOn)
+            {
+                intakeOn = false;
+                intakeBoost = false;
+            }
+            if (gamepad2.left_trigger > 0)
+            {
+                intakeOn = true;
+                intakeBoost = true;
+            }
+            if (intakeOn && !intakeBoost)
                 intakePower = .5;
+            else if (intakeOn && intakeBoost)
+                intakePower = 1;
             else
                 intakePower = 0;
 
