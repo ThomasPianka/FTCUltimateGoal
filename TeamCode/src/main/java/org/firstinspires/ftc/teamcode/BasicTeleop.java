@@ -81,15 +81,10 @@ public class BasicTeleop extends LinearOpMode {
             backLeftPower = Range.clip(hypotenuse * Math.cos(angle) - rotation, -1.0, 1.0);
             backRightPower = Range.clip(hypotenuse * Math.sin(angle) + rotation, -1.0, 1.0);
 
-            // Set intake roller power to 50% when A is pressed and set power to 0% when B is pressed
+            // Set motor states based on the input
             if (gamepad2.a)
             {
                 intakeOn = true;
-                intakeBoost = false;
-            }
-            if (gamepad2.b)
-            {
-                intakeOn = false;
                 intakeBoost = false;
             }
             if (gamepad2.left_trigger > 0)
@@ -97,6 +92,15 @@ public class BasicTeleop extends LinearOpMode {
                 intakeOn = true;
                 intakeBoost = true;
             }
+            if (gamepad2.b)
+            {
+                intakeOn = false;
+                intakeBoost = false;
+            }
+
+            // Set intake roller power to 50% when A is pressed
+            // Set power to 100% when right trigger is pressed
+            // Set power to 0% when B is pressed
             if (intakeOn && !intakeBoost)
                 intakePower = .5;
             else if (intakeOn && intakeBoost)
@@ -118,11 +122,11 @@ public class BasicTeleop extends LinearOpMode {
             else
                 intakeServoPower = 0;
 
-            // Raise ramp at 35% power while DPAD UP is held and lower ramp at 75% power while DPAD DOWN is held
+            // Raise ramp at 50% power while DPAD UP is held and lower ramp at 75% power while DPAD DOWN is held
             if (gamepad2.dpad_up)
             {
                 manipulators.rampMotor.setDirection(DcMotor.Direction.REVERSE);
-                rampPower = .35;
+                rampPower = .50;
             }
             else if (gamepad2.dpad_down)
             {
