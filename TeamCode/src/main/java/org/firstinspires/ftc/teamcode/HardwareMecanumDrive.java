@@ -32,9 +32,9 @@ public class HardwareMecanumDrive
     public void setPower(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower)
     {
         // Set motor power
-        backLeft.setPower(backLeftPower);
-        backRight.setPower(backRightPower);
         frontLeft.setPower(frontLeftPower);
+        backLeft.setPower(backLeftPower);
         frontRight.setPower(frontRightPower);
+        backRight.setPower(backRightPower);
     }
 }

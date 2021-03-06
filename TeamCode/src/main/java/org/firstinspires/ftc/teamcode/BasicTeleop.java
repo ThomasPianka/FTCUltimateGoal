@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -39,11 +40,12 @@ import com.qualcomm.robotcore.util.Range;
 public class BasicTeleop extends LinearOpMode {
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private HardwareMecanumDrive drive = new HardwareMecanumDrive();
-    private HardwareManipulators manipulators = new HardwareManipulators();
+    private final ElapsedTime runtime = new ElapsedTime();
+    private final HardwareMecanumDrive drive = new HardwareMecanumDrive();
+    private final HardwareManipulators manipulators = new HardwareManipulators();
     private boolean intakeOn = false;
     private boolean intakeBoost = false;
+    private boolean armOpen = true;
 
     @Override
     public void runOpMode() {
@@ -69,6 +71,8 @@ public class BasicTeleop extends LinearOpMode {
             double intakeServoPower;
             double rampPower;
             double shooterPower;
+            double armPower;
+            double armPosition;
 
             // Calculate each mathematical component of drive power
             double hypotenuse = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
@@ -81,18 +85,18 @@ public class BasicTeleop extends LinearOpMode {
             backLeftPower = Range.clip(hypotenuse * Math.cos(angle) - rotation, -1.0, 1.0);
             backRightPower = Range.clip(hypotenuse * Math.sin(angle) + rotation, -1.0, 1.0);
 
-            // Set motor states based on the input
+            // Set intake motor state based on the input
             if (gamepad2.a)
             {
                 intakeOn = true;
                 intakeBoost = false;
             }
-            if (gamepad2.left_trigger > 0)
+            else if (gamepad2.left_trigger > 0)
             {
                 intakeOn = true;
                 intakeBoost = true;
             }
-            if (gamepad2.b)
+            else if (gamepad2.b)
             {
                 intakeOn = false;
                 intakeBoost = false;
@@ -103,12 +107,13 @@ public class BasicTeleop extends LinearOpMode {
             // Set power to 0% when B is pressed
             if (intakeOn && !intakeBoost)
                 intakePower = .5;
-            else if (intakeOn && intakeBoost)
+            else if (intakeOn)
                 intakePower = 1;
             else
                 intakePower = 0;
 
-            // Set intake to run forward while X is held or in reverse while Y is held
+            // Set intake to run forward while X is held
+            // Set intake to run backward while Y is held
             if (gamepad2.x)
             {
                 manipulators.intakeServo.setDirection(DcMotor.Direction.FORWARD);
@@ -122,7 +127,8 @@ public class BasicTeleop extends LinearOpMode {
             else
                 intakeServoPower = 0;
 
-            // Raise ramp at 50% power while DPAD UP is held and lower ramp at 75% power while DPAD DOWN is held
+            // Raise ramp at 50% power while DPAD UP is held
+            // Lower ramp at 75% power while DPAD DOWN is held
             if (gamepad2.dpad_up)
             {
                 manipulators.rampMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -142,16 +148,49 @@ public class BasicTeleop extends LinearOpMode {
             else
                 shooterPower = 0;
 
-            // Send power to servo and motors
+            // Set arm state based on the input
+            if (gamepad2.dpad_right)
+                armOpen = true;
+            else if (gamepad2.dpad_left)
+                armOpen = false;
+
+            // Open arm when DPAD RIGHT is pressed
+            // Close arm when DPAD LEFT is pressed
+            if (armOpen)
+                armPosition = 1;
+            else
+                armPosition = 0;
+
+            // Raise arm while left joystick up is held
+            // Lower arm while left joystick down is held
+            if (gamepad2.left_stick_y < 0)
+            {
+                manipulators.armMotor.setDirection(DcMotor.Direction.FORWARD);
+                armPower = 1;
+            }
+            else if (gamepad2.left_stick_y > 0)
+            {
+                manipulators.armMotor.setDirection(DcMotor.Direction.REVERSE);
+                armPower = 1;
+            }
+            else
+                armPower = 0;
+
+            // Send power to motors and servos
             drive.setPower(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
-            manipulators.setPower(intakeServoPower, intakePower, rampPower, shooterPower);
+            manipulators.setIntakeServo(intakeServoPower);
+            manipulators.setIntakeMotor(intakePower);
+            manipulators.setRampMotor(rampPower);
+            manipulators.setShooterMotor(shooterPower);
+            manipulators.setArmMotor(armPower);
+            manipulators.setArmServo(armPosition);
 
             // Show the elapsed game time, servo power, and motor power
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "front left (%.2f), front right (%.2f), back left (%.2f), back right (%.2f)",
                                 frontLeftPower, frontRightPower, backLeftPower, backRightPower);
-            telemetry.addData("Manipulators", "Intake Servo (%.2f), Intake Motor (%.2f), Ramp Motor (%.2f), Shooter Motor (%.2f)",
-                                intakeServoPower, intakePower, rampPower, shooterPower);
+            telemetry.addData("Manipulators", "Intake Servo (%.2f), Intake Motor (%.2f), Ramp Motor (%.2f), Shooter Motor (%.2f), Arm Motor (%.2f), Arm Servo (%.2f)",
+                                intakeServoPower, intakePower, rampPower, shooterPower, armPower, armPosition);
             telemetry.update();
         }
     }
