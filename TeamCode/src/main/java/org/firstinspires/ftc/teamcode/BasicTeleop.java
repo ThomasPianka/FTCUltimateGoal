@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -157,20 +156,20 @@ public class BasicTeleop extends LinearOpMode {
             // Open arm when DPAD RIGHT is pressed
             // Close arm when DPAD LEFT is pressed
             if (armOpen)
-                armPosition = 1;
+                armPosition = .85;
             else
-                armPosition = 0;
+                armPosition = .5;
 
             // Raise arm while left joystick up is held
             // Lower arm while left joystick down is held
             if (gamepad2.left_stick_y < 0)
             {
-                manipulators.armMotor.setDirection(DcMotor.Direction.FORWARD);
+                manipulators.armMotor.setDirection(DcMotor.Direction.REVERSE);
                 armPower = 1;
             }
             else if (gamepad2.left_stick_y > 0)
             {
-                manipulators.armMotor.setDirection(DcMotor.Direction.REVERSE);
+                manipulators.armMotor.setDirection(DcMotor.Direction.FORWARD);
                 armPower = 1;
             }
             else

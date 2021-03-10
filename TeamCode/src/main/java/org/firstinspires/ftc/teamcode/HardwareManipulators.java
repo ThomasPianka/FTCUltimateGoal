@@ -33,7 +33,7 @@ public class HardwareManipulators
         intakeMotor.setDirection(DcMotor.Direction.REVERSE);
         rampMotor.setDirection(DcMotor.Direction.REVERSE);
         shooterMotor.setDirection(DcMotor.Direction.FORWARD);
-        armMotor.setDirection(DcMotor.Direction.FORWARD);
+        armMotor.setDirection(DcMotor.Direction.REVERSE);
         armServo.setDirection(Servo.Direction.FORWARD);
     }
 
