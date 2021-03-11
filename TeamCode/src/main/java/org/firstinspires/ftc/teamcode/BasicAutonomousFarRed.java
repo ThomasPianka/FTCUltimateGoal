@@ -57,10 +57,11 @@ public class BasicAutonomousFarRed extends LinearOpMode
 
             // Note: negative is forward
             // Drive backward at 50% power for 5 seconds, then stop and open claw
-            drive.setPower(0.5, 0.51, 0.5, 0.51);
+            drive.setPower(0.5, 0.5, 0.5, 0.5);
             sleep(5000);
             drive.setPower(0, 0, 0, 0);
-            manipulators.setArmServo(.5);
+            manipulators.setArmServo(.85);
+            sleep(1000);
         }
     }
 }
