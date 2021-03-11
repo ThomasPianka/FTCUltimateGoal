@@ -31,13 +31,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Autonomous Middle Red", group="Basic")
 public class BasicAutonomousMiddleRed extends LinearOpMode
 {
     // Declare OpMode members
-    private HardwareMecanumDrive drive = new HardwareMecanumDrive();
+    private final HardwareMecanumDrive drive = new HardwareMecanumDrive();
 
     @Override
     public void runOpMode() {
@@ -51,8 +50,8 @@ public class BasicAutonomousMiddleRed extends LinearOpMode
         if (opModeIsActive())
         {
             // Note: negative is forward
-            // Drive forward at 50% power for 1 second, then stop for 1 second
-            drive.setPower(-0.5, -0.5, -0.5, -0.5);
+            // Drive backward at 50% power for 1 second, then stop for 1 second
+            drive.setPower(0.5, 0.5, 0.5, 0.5);
             sleep(1000);
             drive.setPower(0, 0, 0, 0);
             sleep(1000);
@@ -63,8 +62,8 @@ public class BasicAutonomousMiddleRed extends LinearOpMode
             drive.setPower(0, 0, 0, 0);
             sleep(1000);
 
-            // Drive forward at 50% power for 2.5 seconds, then stop
-            drive.setPower(-0.5, -0.5, -0.5, -0.5);
+            // Drive backward at 50% power for 2.5 seconds, then stop
+            drive.setPower(0.5, 0.5, 0.5, 0.5);
             sleep(2500);
             drive.setPower(0, 0, 0, 0);
         }

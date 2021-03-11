@@ -31,28 +31,53 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Autonomous Close Red", group="Basic")
 public class BasicAutonomousCloseRed extends LinearOpMode
 {
     // Declare OpMode members
-    private HardwareMecanumDrive drive = new HardwareMecanumDrive();
+    private final HardwareMecanumDrive drive = new HardwareMecanumDrive();
+    private final HardwareManipulators manipulators = new HardwareManipulators();
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initializing");
         drive.initialize(hardwareMap);
+        manipulators.initialize(hardwareMap);
         telemetry.addData("Status", "Initialized");
 
         waitForStart();
 
         if (opModeIsActive())
         {
+            // Close claw around wobble goal
+            manipulators.setArmServo(.5);
+            sleep(1500);
+
             // Note: negative is forward
-            // Drive forward at 50% power for 3 seconds, then stop
-            drive.setPower(-0.5, -0.5, -0.5, -0.5);
-            sleep(3000);
+            // Drive backward at 50% power for 2.75 seconds, then stop for 1 second and open claw
+            drive.setPower(0.5, 0.5, 0.5, 0.5);
+            sleep(2750);
+            drive.setPower(0, 0, 0, 0);
+            sleep(1000);
+            manipulators.setArmServo(.85);
+
+            // Drive right for 1.75 seconds, then stop
+            drive.setPower(-0.5, 0.5, 0.5, -0.5);
+            sleep(1750);
+            drive.setPower(0, 0, 0, 0);
+
+            // Shoot rings until more than 28 seconds have passed in the autonomous period
+            while (getRuntime() <= 28)
+            {
+                manipulators.setShooterMotor(1);
+                sleep(1000);
+                manipulators.setIntakeServo(1);
+            }
+
+            // Drive backward for .25 seconds, then stop
+            drive.setPower(0.5, 0.5, 0.5, 0.5);
+            sleep(250);
             drive.setPower(0, 0, 0, 0);
         }
     }

@@ -31,18 +31,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Autonomous Far Red", group="Basic")
 public class BasicAutonomousFarRed extends LinearOpMode
 {
     // Declare OpMode members
-    private HardwareMecanumDrive drive = new HardwareMecanumDrive();
+    private final HardwareMecanumDrive drive = new HardwareMecanumDrive();
+    private final HardwareManipulators manipulators = new HardwareManipulators();
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initializing");
         drive.initialize(hardwareMap);
+        manipulators.initialize(hardwareMap);
         telemetry.addData("Status", "Initialized");
 
         waitForStart();
@@ -50,11 +51,16 @@ public class BasicAutonomousFarRed extends LinearOpMode
         // Have robot drive forward for 2 seconds
         if (opModeIsActive())
         {
+            // Close claw around wobble goal
+            manipulators.setArmServo(.5);
+            sleep(1500);
+
             // Note: negative is forward
-            // Drive forward at 50% power for 5 seconds, then stop
-            drive.setPower(-0.5, -0.51, -0.5, -0.51);
+            // Drive backward at 50% power for 5 seconds, then stop and open claw
+            drive.setPower(0.5, 0.51, 0.5, 0.51);
             sleep(5000);
             drive.setPower(0, 0, 0, 0);
+            manipulators.setArmServo(.5);
         }
     }
 }
