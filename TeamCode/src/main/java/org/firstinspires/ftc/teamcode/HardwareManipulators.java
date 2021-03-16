@@ -7,7 +7,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareManipulators
 {
-    public CRServo intakeServo = null;
+    public CRServo bottomIntakeServo = null;
+    public CRServo middleIntakeServo = null;
+    public CRServo topIntakeServo = null;
     public DcMotor intakeMotor = null;
     public DcMotor rampMotor = null;
     public DcMotor shooterMotor = null;
@@ -21,7 +23,9 @@ public class HardwareManipulators
         map = hwMap;
 
         // Initialize servo and motors
-        intakeServo = map.get(CRServo.class, "intakeServo");
+        bottomIntakeServo = map.get(CRServo.class, "bottomIntakeServo");
+        middleIntakeServo = map.get(CRServo.class, "middleIntakeServo");
+        topIntakeServo = map.get(CRServo.class, "topIntakeServo");
         intakeMotor = map.get(DcMotor.class, "intakeMotor");
         rampMotor = map.get(DcMotor.class, "rampMotor");
         shooterMotor = map.get(DcMotor.class, "shooterMotor");
@@ -29,7 +33,9 @@ public class HardwareManipulators
         armServo = map.get(Servo.class, "armServo");
 
         // Set servo and motor direction
-        intakeServo.setDirection(CRServo.Direction.FORWARD);
+        bottomIntakeServo.setDirection(CRServo.Direction.FORWARD);
+        middleIntakeServo.setDirection(CRServo.Direction.FORWARD);
+        topIntakeServo.setDirection(CRServo.Direction.FORWARD);
         intakeMotor.setDirection(DcMotor.Direction.REVERSE);
         rampMotor.setDirection(DcMotor.Direction.REVERSE);
         shooterMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -37,9 +43,11 @@ public class HardwareManipulators
         armServo.setDirection(Servo.Direction.FORWARD);
     }
 
-    public void setIntakeServo(double intakeServoPower)
+    public void setIntakeServos(double bottomIntakeServoPower, double middleIntakeServoPower, double topIntakeServoPower)
     {
-        intakeServo.setPower(intakeServoPower);
+        bottomIntakeServo.setPower(bottomIntakeServoPower);
+        middleIntakeServo.setPower(middleIntakeServoPower);
+        topIntakeServo.setPower(topIntakeServoPower);
     }
 
     public void setIntakeMotor(double intakeMotorPower)

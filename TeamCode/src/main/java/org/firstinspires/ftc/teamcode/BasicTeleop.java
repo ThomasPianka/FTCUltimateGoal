@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -115,12 +116,16 @@ public class BasicTeleop extends LinearOpMode {
             // Set intake to run backward while Y is held
             if (gamepad2.x)
             {
-                manipulators.intakeServo.setDirection(DcMotor.Direction.FORWARD);
+                manipulators.bottomIntakeServo.setDirection(CRServo.Direction.FORWARD);
+                manipulators.middleIntakeServo.setDirection(CRServo.Direction.FORWARD);
+                manipulators.topIntakeServo.setDirection(CRServo.Direction.FORWARD);
                 intakeServoPower = 1;
             }
             else if (gamepad2.y)
             {
-                manipulators.intakeServo.setDirection(DcMotor.Direction.REVERSE);
+                manipulators.bottomIntakeServo.setDirection(CRServo.Direction.REVERSE);
+                manipulators.middleIntakeServo.setDirection(CRServo.Direction.REVERSE);
+                manipulators.topIntakeServo.setDirection(CRServo.Direction.REVERSE);
                 intakeServoPower = 1;
             }
             else
@@ -177,7 +182,7 @@ public class BasicTeleop extends LinearOpMode {
 
             // Send power to motors and servos
             drive.setPower(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
-            manipulators.setIntakeServo(intakeServoPower);
+            manipulators.setIntakeServos(intakeServoPower, intakeServoPower, intakeServoPower);
             manipulators.setIntakeMotor(intakePower);
             manipulators.setRampMotor(rampPower);
             manipulators.setShooterMotor(shooterPower);
@@ -188,7 +193,7 @@ public class BasicTeleop extends LinearOpMode {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "front left (%.2f), front right (%.2f), back left (%.2f), back right (%.2f)",
                                 frontLeftPower, frontRightPower, backLeftPower, backRightPower);
-            telemetry.addData("Manipulators", "Intake Servo (%.2f), Intake Motor (%.2f), Ramp Motor (%.2f), Shooter Motor (%.2f), Arm Motor (%.2f), Arm Servo (%.2f)",
+            telemetry.addData("Manipulators", "Intake Servos (%.2f), Intake Motor (%.2f), Ramp Motor (%.2f), Shooter Motor (%.2f), Arm Motor (%.2f), Arm Servo (%.2f)",
                                 intakeServoPower, intakePower, rampPower, shooterPower, armPower, armPosition);
             telemetry.update();
         }

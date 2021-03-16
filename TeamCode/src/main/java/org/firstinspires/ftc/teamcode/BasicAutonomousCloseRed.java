@@ -72,7 +72,7 @@ public class BasicAutonomousCloseRed extends LinearOpMode
             {
                 manipulators.setShooterMotor(1);
                 sleep(1000);
-                manipulators.setIntakeServo(1);
+                manipulators.setIntakeServos(1, 1, 1);
             }
 
             // Drive backward for .25 seconds, then stop
