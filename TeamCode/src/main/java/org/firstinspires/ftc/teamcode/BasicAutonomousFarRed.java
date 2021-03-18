@@ -52,7 +52,7 @@ public class BasicAutonomousFarRed extends LinearOpMode
         if (opModeIsActive())
         {
             // Close claw around wobble goal
-            manipulators.setArmServo(.5);
+            manipulators.setArmServo(.85);
             sleep(1500);
 
             // Note: negative is forward
@@ -60,7 +60,7 @@ public class BasicAutonomousFarRed extends LinearOpMode
             drive.setPower(0.5, 0.5, 0.5, 0.5);
             sleep(5000);
             drive.setPower(0, 0, 0, 0);
-            manipulators.setArmServo(.85);
+            manipulators.setArmServo(.5);
             sleep(1000);
         }
     }

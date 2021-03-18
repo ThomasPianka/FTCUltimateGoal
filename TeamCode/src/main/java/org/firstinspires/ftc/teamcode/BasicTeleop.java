@@ -161,9 +161,9 @@ public class BasicTeleop extends LinearOpMode {
             // Open arm when DPAD RIGHT is pressed
             // Close arm when DPAD LEFT is pressed
             if (armOpen)
-                armPosition = .85;
-            else
                 armPosition = .5;
+            else
+                armPosition = .85;
 
             // Raise arm while left joystick up is held
             // Lower arm while left joystick down is held
