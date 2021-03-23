@@ -52,16 +52,34 @@ public class BasicAutonomousFarRed extends LinearOpMode
         if (opModeIsActive())
         {
             // Close claw around wobble goal
-            manipulators.setArmServo(.85);
-            sleep(1500);
+            manipulators.setArmServo(.9);
+            sleep(1000);
+            manipulators.setArmMotor(1);
+            sleep(500);
+            manipulators.setArmMotor(0);
 
             // Note: negative is forward
             // Drive backward at 50% power for 5 seconds, then stop and open claw
-            drive.setPower(0.5, 0.5, 0.5, 0.5);
+            drive.setPower(0.51, 0.51, 0.5, 0.5);
             sleep(5000);
             drive.setPower(0, 0, 0, 0);
             manipulators.setArmServo(.5);
             sleep(1000);
+
+            drive.setPower(-0.5, -0.52, -0.50, -0.52);
+            sleep(2500);
+            drive.setPower(0, 0, 0, 0);
+
+            while (getRuntime() <= 28)
+            {
+                manipulators.setShooterMotor(1);
+                sleep(1000);
+                manipulators.setIntakeServos(1, 1, 1);
+            }
+
+            drive.setPower(0.5, 0.5, 0.5, 0.5);
+            sleep(250);
+            drive.setPower(0, 0, 0, 0);
         }
     }
 }

@@ -37,11 +37,13 @@ public class BasicAutonomousMiddleRed extends LinearOpMode
 {
     // Declare OpMode members
     private final HardwareMecanumDrive drive = new HardwareMecanumDrive();
+    private final HardwareManipulators manipulators = new HardwareManipulators();
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initializing");
         drive.initialize(hardwareMap);
+        manipulators.initialize(hardwareMap);
         telemetry.addData("Status", "Initialized");
 
         waitForStart();
@@ -49,6 +51,12 @@ public class BasicAutonomousMiddleRed extends LinearOpMode
         // Have robot drive forward for 2 seconds
         if (opModeIsActive())
         {
+            manipulators.setArmServo(.9);
+            sleep(1000);
+            manipulators.setArmMotor(1);
+            sleep(500);
+            manipulators.setArmMotor(0);
+
             // Note: negative is forward
             // Drive backward at 50% power for 1 second, then stop for 1 second
             drive.setPower(0.5, 0.5, 0.5, 0.5);
@@ -66,6 +74,8 @@ public class BasicAutonomousMiddleRed extends LinearOpMode
             drive.setPower(0.5, 0.5, 0.5, 0.5);
             sleep(2500);
             drive.setPower(0, 0, 0, 0);
+            sleep(1000);
+            manipulators.setArmServo(.5);
         }
     }
 }

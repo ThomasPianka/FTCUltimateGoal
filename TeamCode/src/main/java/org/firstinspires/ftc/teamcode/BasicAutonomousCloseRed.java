@@ -51,8 +51,11 @@ public class BasicAutonomousCloseRed extends LinearOpMode
         if (opModeIsActive())
         {
             // Close claw around wobble goal
-            manipulators.setArmServo(.85);
-            sleep(1500);
+            manipulators.setArmServo(.9);
+            sleep(1000);
+            manipulators.setArmMotor(1);
+            sleep(500);
+            manipulators.setArmMotor(0);
 
             // Note: negative is forward
             // Drive backward at 50% power for 2.75 seconds, then stop for 1 second and open claw
@@ -64,7 +67,7 @@ public class BasicAutonomousCloseRed extends LinearOpMode
 
             // Drive right for 1.75 seconds, then stop
             drive.setPower(-0.5, 0.5, 0.5, -0.5);
-            sleep(1750);
+            sleep(1500);
             drive.setPower(0, 0, 0, 0);
 
             // Shoot rings until more than 28 seconds have passed in the autonomous period

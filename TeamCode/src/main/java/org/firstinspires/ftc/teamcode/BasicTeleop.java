@@ -163,7 +163,7 @@ public class BasicTeleop extends LinearOpMode {
             if (armOpen)
                 armPosition = .5;
             else
-                armPosition = .85;
+                armPosition = .9;
 
             // Raise arm while left joystick up is held
             // Lower arm while left joystick down is held
