@@ -103,7 +103,7 @@ public class BasicTeleop extends LinearOpMode {
             }
 
             // Set intake roller power to 50% when A is pressed
-            // Set power to 100% when right trigger is pressed
+            // Set power to 100% when left trigger is pressed
             // Set power to 0% when B is pressed
             if (intakeOn && !intakeBoost)
                 intakePower = .5;
@@ -146,7 +146,7 @@ public class BasicTeleop extends LinearOpMode {
             else
                 rampPower = 0;
 
-            // Set shooter power based on how far in the trigger is pressed
+            // Set shooter power based on how far in the right trigger is pressed
             if (gamepad2.right_trigger > 0)
                 shooterPower = gamepad2.right_trigger;
             else

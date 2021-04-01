@@ -22,7 +22,7 @@ public class HardwareManipulators
         // Save reference to map
         map = hwMap;
 
-        // Initialize servo and motors
+        // Initialize servos and motors
         bottomIntakeServo = map.get(CRServo.class, "bottomIntakeServo");
         middleIntakeServo = map.get(CRServo.class, "middleIntakeServo");
         topIntakeServo = map.get(CRServo.class, "topIntakeServo");

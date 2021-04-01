@@ -48,9 +48,9 @@ public class BasicAutonomousMiddleRed extends LinearOpMode
 
         waitForStart();
 
-        // Have robot drive forward for 2 seconds
         if (opModeIsActive())
         {
+            // Close claw around wobble goal
             manipulators.setArmServo(.9);
             sleep(1000);
             manipulators.setArmMotor(1);
@@ -70,7 +70,7 @@ public class BasicAutonomousMiddleRed extends LinearOpMode
             drive.setPower(0, 0, 0, 0);
             sleep(1000);
 
-            // Drive backward at 50% power for 2.5 seconds, then stop
+            // Drive backward at 50% power for 2.5 seconds, then stop and open claw
             drive.setPower(0.5, 0.5, 0.5, 0.5);
             sleep(2500);
             drive.setPower(0, 0, 0, 0);

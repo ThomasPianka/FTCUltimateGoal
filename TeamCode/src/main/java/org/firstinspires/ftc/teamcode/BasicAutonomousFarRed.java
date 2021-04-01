@@ -48,7 +48,6 @@ public class BasicAutonomousFarRed extends LinearOpMode
 
         waitForStart();
 
-        // Have robot drive forward for 2 seconds
         if (opModeIsActive())
         {
             // Close claw around wobble goal
@@ -66,10 +65,12 @@ public class BasicAutonomousFarRed extends LinearOpMode
             manipulators.setArmServo(.5);
             sleep(1000);
 
+            // Drive forward for 2.5 seconds, then stop
             drive.setPower(-0.5, -0.52, -0.50, -0.52);
             sleep(2500);
             drive.setPower(0, 0, 0, 0);
 
+            // Shoot rings until more than 28 seconds have passed in the autonomous period
             while (getRuntime() <= 28)
             {
                 manipulators.setShooterMotor(1);
@@ -77,6 +78,7 @@ public class BasicAutonomousFarRed extends LinearOpMode
                 manipulators.setIntakeServos(1, 1, 1);
             }
 
+            // Drive backward for .25 seconds, then stop
             drive.setPower(0.5, 0.5, 0.5, 0.5);
             sleep(250);
             drive.setPower(0, 0, 0, 0);
